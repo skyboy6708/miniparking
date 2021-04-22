@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/auth.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="inner">
+            <div class="from_area">
+                <a href="/" class="main_btn"><img src="/images/logo.png" alt="주차장로고"></a>
+                <div class="area">
+                    <button type="button" class="form_btn log select">로그인</button>
+                    <button type="button" class="form_btn regi ">회원가입</button>
+                </div>
+                
+            </div>
+            <div class=" login  <%= display %>">
+                
+                <div class="fee">요금정책: 30분당 <%= fee %>원 입니다</div>
+                <form action="/auth/login_process" method="post">
+                  <p><input type="text" name="car_number" placeholder="car_number"></p>
+
+                  <span><%= carIdState %></span>
+                  <p><input type="password" name="password" placeholder="password"></p>
+                  <span></span>
+                  <p class="log_area">
+                    <input type="submit" value="입차하기" class="hover_btn">
+                  </p>
+                </form>
+            </div>
+            <div class=" register dnone <%= displayReverse %>">
+                <form action="/auth/register_process" method="post">
+                    <p><input type="text" name="car_number" placeholder="car number"></p>
+                    <span style="color: blueviolet;font-weight: bold;"><%= carNumState %></span>
+                  <p><input type="password" name="password" placeholder="password"></p>
+                  <p><input type="text" name="name" placeholder="name"></p>
+                  <label for="type">유저 유형:</label> 
+                    <select name="type" id="type"> 
+                        <option value="0">normal</option>
+                        <option value="1">regular</option>
+                    </select>
+                  <p class="log_area">
+                    <input type="submit" value="회원가입하기"class="hover_btn">
+                  </p>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+
+
+    <script>
+        function changeFrom(){
+            const logBtn = document.querySelector('.form_btn.log');
+            const regiBtn = document.querySelector('.form_btn.regi');
+            const loginForm = document.querySelector('.login');
+            const registerForm = document.querySelector('.register');
+
+            logBtn.addEventListener('click', function(){
+                if(!logBtn.classList.contains('select')){
+                    logBtn.classList.add('select')
+                    regiBtn.classList.remove('select')
+                    loginForm.classList.remove('dnone')
+                    registerForm.classList.add('dnone')
+                    registerForm.classList.remove('dblock')
+                } 
+            });
+            regiBtn.addEventListener('click', function(){
+                if(!regiBtn.classList.contains('select')){
+                    regiBtn.classList.add('select')
+                    logBtn.classList.remove('select')
+                    registerForm.classList.remove('dnone')
+                    loginForm.classList.add('dnone')
+                } 
+            });
+            if(registerForm.classList.contains('dblock')){
+                regiBtn.classList.add('select')
+                logBtn.classList.remove('select')
+            }
+        }
+        changeFrom()
+    </script>
+        
+    
+</body>
+</html>

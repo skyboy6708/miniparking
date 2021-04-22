@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <!-- <link rel="stylesheet" type="text/css" href="/stylesheets/auth.css"> -->
+    <link rel="stylesheet" type="text/css" href="/stylesheets/index.css">
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <div class="wrapper">
+        <div class="inner">
+            <div class="header">
+                <a href="#" class="main_btn"><img src="/images/logo.png" alt="주차장로고"></a>
+                <div class="r_area">
+                    <h2><span id="carNumber"><%= carNumber %></span>님 환영합니다</h2>
+                    <form action="/logout" method="get">
+                  </form>
+                </div>
+            </div>
+            
+            <div class="content">
+                <form action="/auth/result" method="get">
+                    <div class="wrap_box"><span class="amount_text">입차 시간</span> <span id="in_time" class="form_box" ><%= intime %></span></div>
+                    <div class="wrap_box"><span class="amount_text">출차 시간</span> <span id="out_time" class="form_box" ></span></div>
+                    <!-- <div><span>출차 시간</span> <input id="out_date" type="date"><input id="out_time" type="time"></div> -->
+                    <button type="button" class="out_btn">출차요청</button>
+                    <p class="show_text" style="text-align: center;"></p>
+                    <div class="wrap_box"><span class="amount_text">현재 금액</span> <span id="cur_amount" class="form_box" ></span></div>
+                    <p class="select"><span>할인 방법</span>
+                        <select name="discount" id="discount">
+                            <option value="0">없음</option>
+                            <option value="1">영수증</option>
+                        </select>
+                    </p>
+                    <p class="select"><span>결제 방법</span>
+                        <select name="payment" id="payment">
+                            <option value="0">현금</option>
+                            <option value="1">카드</option>
+                        </select>
+                    </p>
+                    <div  class="wrap_box"><span class="amount_text total_amount">총 금액</span> <span id="total_amount" class="form_box"></span></div>
+                    <div class="btn_area">
+
+                        <button type="submit" class="pay_btn">결제하기</button>
+                        
+                    </div>
+                    
+                </form>
+                
+            </div>
+            <div class="content_result header">
+            </div>
+        </div>
+    </div>
+
+    
+    <script>
+        const a = function(){
+            const inTime = document.getElementById('in_time').textContent;
+            const outDate = document.getElementById('out_date');
+            const outTime = document.getElementById('out_time');
+
+            const inTimeDate = inTime.split(' ')[0];
+            const inTimeTime = inTime.split(' ')[1];
+            
+            outDate.setAttribute('min', inTimeDate)
+            outTime.setAttribute('min', inTimeTime)
+            console.log(inTime)
+        }
+        const sendOutput = function() {
+            
+            const outBtn = document.querySelector('.out_btn');
+            const showText = document.querySelector('.show_text');
+            const totalAmount = document.querySelector('#total_amount');
+            const curAmount = document.querySelector('#cur_amount');
+            const discount = document.getElementById('discount');
+            const outTime = document.getElementById('out_time');
+            const inTime = document.getElementById('in_time');
+            const payBtn = document.querySelector('.pay_btn');
+            const feeArea ={}
+
+
+            // 계산 로직 
+            outBtn.addEventListener('click', function(){
+                fetch('/auth/output',{
+                    method: 'GET',
+                })
+                .then((response) => {
+                    // response 객체받음(메서드 json, formData => promise를 리턴)
+                    // response.headers객체(응답헤더의 정보 확인한다)
+                    return response.json();
+                    
+                })
+                .then((data) => {
+                    
+                    const outText = JSON.stringify(data.text);
+                    console.log(data);
+                    console.log(data.text);
+                    const result = data.result;
+                    const feeCurResult = data.feeCurResult;
+                    const feeState = data.feeState;
+                    // const feeCurResultFree = data.feeCurResultFree;
+                    console.log(feeCurResult)
+                    console.log(typeof feeState,feeState)
+                    // console.log(result);
+                    // console.log(feeCurResultFree);
+                    console.log(outText.substring(1,outText.length-1));
+                    
+                    showText.textContent = outText.substring(1,outText.length-1);
+                    totalAmount.textContent = result;
+                    // curAmount.textContent = ((typeof feeCurResult == Number) ? Number(feeCurResult):feeCurResultFree);
+                    curAmount.textContent = Number(feeCurResult) + "원";
+                    outTime.textContent = data.outTimeDate;
+                    feeArea["feeCurResult"] = Number(feeCurResult);
+                    if(feeState === 0) {
+                        payBtn.textContent = "출차하기"
+                    }
+                    
+                })
+            })
+
+            // 영수증 할인 금액 표시(10% 할인)
+            discount.addEventListener('change', function(){
+                console.log(feeArea.feeCurResult);
+                console.log(feeArea.result);
+                if(discount.value === '1'){
+                    // console.log(typeof curAmount.textContent);
+                    // console.log(Number(curAmount.textContent));
+                    totalAmount.textContent = Math.floor(feeArea.feeCurResult - feeArea.feeCurResult*0.1) +"원"
+                    console.log(feeArea.feeCurResult);
+                    
+                    // if(curAmount.innerText) {
+                    //     totalAmount.textContent = (typeof feeCurResult == Number) ? Math.floor(Number(curAmount.textContent) - Number(curAmount.textContent) * 0.1) +'원':'a';
+                    // }
+                } else {
+
+                }
+            })
+            payBtn.addEventListener('click',function(){
+                window.alert('결제가 완료되었습니다!')
+                window.location.href('/')
+            })
+        };
+        sendOutput();
+
+        
+
+    </script>
+        
+    
+</body>
+</html>

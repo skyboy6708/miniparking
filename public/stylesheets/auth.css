@@ -1,0 +1,106 @@
+::root {
+  font-size: 10px;
+}
+body {
+  position: relative;
+  background-image: url("/images/main-bg.jpg");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+
+  background-attachment: fixed;
+  width: 100%;
+  height: 100%;
+}
+body:before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(168, 150, 150, 0.3);
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: -1;
+}
+button {
+  background-color: #fff;
+  border: 0;
+  cursor: pointer;
+  outline: none;
+}
+input {
+  border: 2px solid rgba(180, 82, 82, 0.7);
+  outline: none;
+  width: 80%;
+  height: 2rem;
+  text-indent: 1rem;
+  margin-bottom: 0.5rem;
+  background-color: transparent;
+}
+input[type="submit"] {
+  text-indent: 0rem;
+  cursor: pointer;
+  background-color: transparent;
+}
+.wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+}
+.wrapper .inner {
+  max-width: 35rem;
+  min-width: 20rem;
+  margin: 0 auto;
+}
+.wrapper .inner .main_btn {
+  display: block;
+  width: 5rem;
+  margin-bottom: 1.5rem;
+  margin-left: 7%;
+}
+.from_area {
+  padding-top: 5rem;
+}
+.from_area .area {
+  text-align: center;
+}
+.from_area .form_btn {
+  width: 40%;
+  height: 2rem;
+  border-radius: 10px;
+}
+.login {
+  position: relative;
+}
+.login .fee {
+  position: absolute;
+  right: 4rem;
+  top: -9rem;
+}
+.select {
+  background-color: #000;
+  color: white;
+}
+.dnone {
+  display: none;
+}
+.dblock {
+  display: block;
+}
+.login {
+  text-align: center;
+}
+.register {
+  text-align: center;
+}
+.from_area .area {
+  margin-bottom: 2rem;
+}
+#type {
+  margin-bottom: 2rem;
+}
+.hover_btn {
+  transition: all 0.3s;
+}
+.hover_btn:hover {
+  background-color: rgb(241, 241, 241);
+}

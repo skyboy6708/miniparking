@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/auth.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/index.css">
+    <style>
+        .text_area {width: 80%; margin: 0 auto; padding-left: 3rem; font-size: 2rem;}
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="inner">
+            <a href="/" class="main_btn"><img src="/images/logo.png" alt="주차장로고"></a>
+
+            <div class="text_area">
+                <p>결제가 완료되었습니다</p>
+                <p>조심히 가십시오</p>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        function a(){
+            
+            // window.history.go(-2) 뒤로 가기
+            // 뒤/앞으로 가기 버튼클릭시 이벤트 발생
+            window.onpopstate = function(event) {
+                // hinstory.pushState(null, null, '/')
+                // console.log('gogogogog')
+                window.location.href('/')
+            }
+            // window.onpageshow = function (event) { 
+            //     if (event.persisted) { console.log('BFCahe로부터 복원됨'); } 
+            //     else { console.log('새로 열린 페이지'); window.location.href = '/';} };
+
+            // window.onpageshow = function(event) {
+            //     if( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+            //         console.log('done')
+            //         window.location = '/';
+            //     } else {
+            //         console.log('no')
+            //     }
+            // }
+            // window.addEventListener('popstate', function(event){
+            //     console.log('222222222222')
+            // }) 
+
+
+        }
+        a()
+    </script>
+        
+    
+</body>
+</html>

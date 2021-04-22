@@ -1,0 +1,134 @@
+::root {
+  font-size: 10px;
+}
+body {
+  position: relative;
+  background-image: url("/images/main-bg.jpg");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+
+  background-attachment: fixed;
+  width: 100%;
+  height: 100%;
+}
+body:before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(168, 150, 150, 0.3);
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: -1;
+}
+button {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  outline: none;
+  border: 1px solid rgba(180, 82, 82, 0.7);
+}
+input {
+  border: 2px solid rgba(180, 82, 82, 0.7);
+  outline: none;
+  width: 80%;
+  height: 2rem;
+  text-indent: 1rem;
+  margin-bottom: 0.5rem;
+  background-color: transparent;
+}
+input[type="submit"] {
+  text-indent: 0rem;
+  cursor: pointer;
+  background-color: transparent;
+}
+img {
+  border: 0;
+  vertical-align: top;
+}
+.wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+}
+.wrapper .inner {
+  max-width: 27rem;
+  min-width: 20rem;
+  margin: 0 auto;
+  padding-top: 5rem;
+}
+
+.wrapper .inner .header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 3rem;
+  margin-bottom: 2rem;
+}
+.wrapper .inner .header .main_btn {
+  width: 5rem;
+}
+.wrapper .inner .content {
+  padding: 0 3rem;
+  text-align: center;
+}
+.wrapper .inner .content .select span {
+  display: inline-block;
+  margin-right: 2.6rem;
+}
+
+.wrapper .inner #discount,
+.wrapper .inner #payment {
+  width: 70.7%;
+  height: 2rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(180, 82, 82, 0.7);
+}
+.content .wrap_box {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+.content .wrap_box .amount_text {
+  vertical-align: 0.7rem;
+}
+.content .form_box {
+  display: inline-block;
+  background-color: #fff;
+  width: 70%;
+  border: 1px solid rgba(180, 82, 82, 0.7);
+  height: 2rem;
+  line-height: 2.5;
+}
+
+.out_btn,
+.pay_btn {
+  border: 1px solid rgba(180, 82, 82, 0.7);
+  width: 40%;
+  line-height: 2rem;
+  transition: all 0.3s;
+  border-radius: 1rem;
+  background-color: rgba(255, 171, 171, 0.8);
+  margin-left: 6rem;
+}
+.out_btn {
+  margin-bottom: 1rem;
+  margin-left: 6rem;
+}
+.btn_area {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.out_btn:hover,
+.pay_btn:hover {
+  background-color: rgb(245, 245, 245);
+}
+.show_text {
+  font-size: 1.4rem;
+  margin-left: 27%;
+}
+
+@media screen and (max-width: 432px) {
+  .wrapper .inner .content .select span {
+    margin-right: 7%;
+  }
+}
